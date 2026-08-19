@@ -1,24 +1,27 @@
-CloudBus — Bus Ticket Reservation System
+🚌 CloudBus — Bus Ticket Reservation System
 
-CloudBus is a cloud-based bus ticket reservation system that allows users to search for bus routes, view seat availability, select seats, enter passenger details, and confirm bookings.
+CloudBus is a cloud-based bus ticket reservation system built with Python Flask, Supabase, and PostgreSQL.
 
-The application uses Python Flask for the backend, Supabase PostgreSQL for database management, and Supabase Authentication for secure user registration and login.
+The system allows users to securely register and log in, search for buses, select available seats, enter passenger details, and confirm bookings. It also provides real-time seat availability and database-level protection against double booking.
 
-🚀 Features
+---
 
-- 🔐 User registration and login
-- 🔎 Search buses by source, destination, and date
-- 🚌 View available buses and trip details
-- 💺 Interactive seat-selection system
-- 📊 Real-time seat availability
-- 👤 Passenger information management
-- 🎟️ Multi-seat booking
-- 💰 Automatic booking price calculation
-- 🔒 Secure authentication using Supabase
-- 🛡️ Row Level Security (RLS)
-- ⚡ Prevention of double-booking
-- 📋 View personal booking history
-- ☁️ Cloud-based PostgreSQL database
+✨ Key Features
+
+Feature| Description
+🔐 Authentication| Secure user registration and login using Supabase Auth
+🔎 Bus Search| Search buses by source, destination, and travel date
+🚌 Bus Details| View available buses and trip information
+💺 Seat Selection| Interactive seat selection with available/booked states
+🎟️ Multi-seat Booking| Book multiple seats in a single transaction
+💰 Price Calculation| Automatically calculates the total booking price
+📊 Live Availability| Updates available seats after successful bookings
+🛡️ Double-booking Protection| PostgreSQL constraints prevent duplicate seat bookings
+📋 Booking History| Users can view their personal bookings
+🔒 Row Level Security| Supabase RLS protects user-specific data
+☁️ Cloud Database| PostgreSQL database hosted on Supabase
+
+---
 
 🛠️ Technology Stack
 
@@ -40,12 +43,54 @@ Database & Authentication
 - PostgreSQL
 - Supabase Authentication
 - Row Level Security (RLS)
+- JWT Authentication
 
 Deployment
 
-- Render / Railway / other Python cloud platforms
+- Render
+- Railway
+- Other Python-compatible cloud platforms
+
+---
+
+🏗️ System Architecture
+
+                    ┌──────────────────────┐
+                    │        User          │
+                    └──────────┬───────────┘
+                               │
+                               ▼
+                    ┌──────────────────────┐
+                    │   HTML / CSS / JS    │
+                    │      Frontend        │
+                    └──────────┬───────────┘
+                               │
+                               │ REST API
+                               ▼
+                    ┌──────────────────────┐
+                    │     Flask Backend    │
+                    │       Python         │
+                    └──────────┬───────────┘
+                               │
+                               ▼
+                    ┌──────────────────────┐
+                    │       Supabase       │
+                    │   Authentication     │
+                    │          +           │
+                    │     PostgreSQL       │
+                    └──────────┬───────────┘
+                               │
+                               ▼
+                    ┌──────────────────────┐
+                    │ Routes / Trips /     │
+                    │ Seats / Bookings     │
+                    └──────────────────────┘
+
+---
 
 📁 Project Structure
+
+The project is organized into separate backend, frontend, database, and configuration components.
 
 bus-reservation-system/
 │
@@ -54,8 +99,10 @@ bus-reservation-system/
 ├── auth_utils.py
 ├── requirements.txt
 ├── .env.example
+├── .gitignore
 ├── Procfile
 ├── runtime.txt
+├── README.md
 │
 ├── database/
 │   ├── schema.sql
@@ -87,106 +134,109 @@ bus-reservation-system/
     ├── Bookings.png
     └── Supabase.png
 
-🖼️ Application Screenshots
+📂 Important Directories
 
-1. Registration / Signup
+Directory| Purpose
+"database/"| PostgreSQL schema and sample data
+"static/css/"| Application styles
+"static/js/"| Frontend JavaScript
+"templates/"| Flask HTML templates
+"screenshots/"| Project screenshots
 
-The registration page allows new users to create an account securely using Supabase Authentication.
+📄 Important Files
 
-"Register / Signup" (screenshots/Register-signup.png)
+File| Purpose
+"app.py"| Main Flask application
+"config.py"| Application configuration
+"auth_utils.py"| Authentication-related utilities
+"requirements.txt"| Python dependencies
+".env.example"| Example environment variables
+"Procfile"| Cloud deployment configuration
+"runtime.txt"| Python runtime configuration
 
-2. Login
+«⚠️ The actual ".env" file is intentionally excluded from GitHub because it contains private credentials.»
 
-Existing users can log in using their registered email and password.
+---
 
-"Login" (screenshots/Login.png)
-
-3. Home / Bus Search
-
-Users can search for available buses by entering the source, destination, and travel date.
-
-"Home" (screenshots/Home.png)
-
-4. Seat Selection
-
-Users can view the bus seat layout and select one or multiple available seats before booking.
-
-"Select Seats" (screenshots/Select_seats.png)
-
-5. Bookings
-
-Users can view their confirmed bookings and booking details in their personal booking history.
-
-"Bookings" (screenshots/Bookings.png)
-
-6. Supabase Database
-
-Supabase PostgreSQL is used to store routes, trips, seat availability, bookings, and related application data.
-
-"Supabase" (screenshots/Supabase.png)
-
-🗄️ Database Structure
+🗄️ Database Design
 
 CloudBus uses Supabase PostgreSQL as its cloud database.
 
-"routes"
+Routes
 
-Stores source and destination information.
+The "routes" table stores the source and destination of each route.
 
 Column| Description
 "route_id"| Unique route identifier
 "from_city"| Starting city
 "to_city"| Destination city
 
-"trips"
+Trips
 
-Stores individual bus trips.
+The "trips" table stores individual bus trips.
 
 Column| Description
 "id"| Unique trip identifier
 "route_id"| Associated route
-"bus_name"| Bus name
-"bus_number"| Bus number
+"bus_name"| Name of the bus
+"bus_number"| Bus registration/number
 "bus_type"| Type of bus
-"departure_time"| Departure time
+"departure_time"| Scheduled departure
 
-"trip_availability"
+Trip Availability
 
-Stores seat availability for every trip.
+The "trip_availability" table maintains seat availability.
 
 Column| Description
 "trip_id"| Associated trip
-"total_seats"| Total number of seats
+"total_seats"| Total seats in the bus
 "seats_available"| Currently available seats
 
-Example:
+Example
 
-Trip ID| Total Seats| Seats Available
+Trip ID| Total Seats| Available Seats
 1| 40| 40
 2| 32| 32
 3| 40| 40
 4| 45| 45
 
-When a booking is confirmed, the available-seat count is updated.
+After booking two seats:
+
+Total Seats      : 40
+Available Seats  : 38
+
+---
 
 💺 Seat Booking System
 
-CloudBus provides an interactive seat map.
+CloudBus provides an interactive seat-selection interface.
 
-Users can:
+Booking Process
 
-1. Open a bus trip.
-2. View available, selected, and booked seats.
-3. Select one or multiple seats.
-4. Enter passenger details.
-5. Review the total price.
-6. Confirm the booking.
+Search Bus
+    ↓
+Select Trip
+    ↓
+View Seat Map
+    ↓
+Select Seat(s)
+    ↓
+Enter Passenger Details
+    ↓
+Review Price
+    ↓
+Confirm Booking
+    ↓
+Booking Stored in PostgreSQL
 
-Seat states include:
+Seat States
 
-- Available → Can be selected
-- Selected → Currently selected by the user
-- Booked → Already reserved and cannot be selected
+State| Meaning
+🟢 Available| Seat can be selected
+🔵 Selected| Seat currently selected by the user
+🔴 Booked| Seat is already reserved
+
+Users can select multiple seats and the total price is automatically calculated.
 
 Example:
 
@@ -194,68 +244,85 @@ Seat 31 → Selected
 Seat 32 → Selected
 
 2 seats selected
-Total: ₹90
+Total Price → ₹90
+
+---
 
 🔒 Authentication
 
 CloudBus uses Supabase Email/Password Authentication.
 
-Users can:
+Authentication Flow
 
-- Create an account
-- Log in
-- Log out
-- Access protected pages
-- View their own bookings
+User
+ │
+ ├── Register
+ │
+ ▼
+Supabase Authentication
+ │
+ ▼
+Login
+ │
+ ▼
+Authentication Token
+ │
+ ▼
+Flask Backend
+ │
+ ▼
+Protected API
 
-After login, Supabase provides an authentication token.
-
-The browser sends the token to the Flask backend using:
+Authenticated requests use:
 
 Authorization: Bearer <token>
 
-The backend verifies the token before allowing protected operations.
+The Flask backend verifies the authentication token before allowing protected operations.
 
-🛡️ Preventing Double Booking
+---
 
-One of the important features of CloudBus is preventing two users from booking the same seat simultaneously.
+🛡️ Double-Booking Protection
 
-A PostgreSQL unique partial index is used:
+A major feature of CloudBus is protection against two users booking the same seat simultaneously.
 
-create unique index unique_confirmed_seat
-on public.bookings (trip_id, seat_number)
-where status = 'confirmed';
+A PostgreSQL partial unique index is used:
 
-This ensures that only one confirmed booking can exist for a particular seat on a particular trip.
+CREATE UNIQUE INDEX unique_confirmed_seat
+ON public.bookings (trip_id, seat_number)
+WHERE status = 'confirmed';
 
-The booking operation is also handled through a PostgreSQL function so multiple seats can be processed safely as a single transaction.
+This guarantees that only one confirmed booking can exist for the same seat on the same trip.
+
+Example
 
 User A                    User B
    │                         │
    │ Book Seat 31            │ Book Seat 31
    │                         │
    └──────────┬──────────────┘
-              ↓
+              │
+              ▼
         PostgreSQL
-              ↓
-       Seat 31 available?
+              │
+              ▼
+       Check Seat 31
           /       \
-        YES        NO
-         │          │
-       Book       Reject
-         │          │
-         ↓          ↓
-     Success     Booking
-                 failed
+       Available  Booked
+          │          │
+          ▼          ▼
+       Confirm     Reject
+       Booking     Booking
 
-This protection is handled at the database level, rather than relying only on frontend JavaScript.
+The database acts as the final source of truth rather than relying only on frontend validation.
+
+---
 
 🔄 Application Flow
 
 User
  │
  ▼
-Login / Signup
+Register / Login
  │
  ▼
 Search Route
@@ -290,12 +357,64 @@ Booking Confirmed
  ▼
 My Bookings
 
+---
+
+🖼️ Application Screenshots
+
+1. Registration / Signup
+
+Users can create a new account using Supabase Authentication.
+
+"Register / Signup" (screenshots/Register-signup.png)
+
+---
+
+2. Login
+
+Registered users can securely log in to CloudBus.
+
+"Login" (screenshots/Login.png)
+
+---
+
+3. Home / Bus Search
+
+Users can search for buses by entering the source, destination, and travel date.
+
+"Home" (screenshots/Home.png)
+
+---
+
+4. Seat Selection
+
+Users can view the seat map and select one or multiple available seats.
+
+"Select Seats" (screenshots/Select_seats.png)
+
+---
+
+5. Booking History
+
+Users can view their confirmed bookings and passenger information.
+
+"Bookings" (screenshots/Bookings.png)
+
+---
+
+6. Supabase Database
+
+Supabase PostgreSQL is used as the cloud database for routes, trips, seat availability, and bookings.
+
+"Supabase" (screenshots/Supabase.png)
+
+---
+
 ⚙️ Installation
 
 1. Clone the Repository
 
 git clone https://github.com/subrahmanyamdumpa-spec/CODSOFT_TASK3.git
-cd bus-reservation-system
+cd CODSOFT_TASK3
 
 2. Create a Virtual Environment
 
@@ -313,55 +432,71 @@ source venv/bin/activate
 
 pip install -r requirements.txt
 
+---
+
 🔑 Environment Variables
 
 Create a ".env" file in the project root:
 
 SUPABASE_URL=your_supabase_project_url
 SUPABASE_ANON_KEY=your_supabase_anon_key
-SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
-SUPABASE_JWT_SECRET=your_jwt_secret
+SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
+SUPABASE_JWT_SECRET=your_supabase_jwt_secret
 FLASK_SECRET_KEY=your_flask_secret_key
 
-⚠️ Never upload ".env" to GitHub.
+".gitignore"
 
-Add the following to ".gitignore":
+The following should remain excluded from Git:
 
 .env
 venv/
 __pycache__/
+*.pyc
 
-🗃️ Supabase Setup
+«🔐 Never upload your ".env" file, Supabase service-role key, or JWT secret to GitHub.»
+
+---
+
+🗃️ Supabase Configuration
 
 1. Create a Supabase project.
-2. Open the SQL Editor.
-3. Run "database/schema.sql".
-4. Run "database/seed.sql".
-5. Enable Email/Password authentication.
-6. Add the Supabase credentials to ".env".
+2. Open SQL Editor.
+3. Run:
 
-The database will then contain the required routes, trips, availability, bookings, and user-related information.
+database/schema.sql
 
-▶️ Run the Application
+4. Run:
+
+database/seed.sql
+
+5. Enable Email/Password Authentication.
+6. Copy the required Supabase credentials.
+7. Add them to your local ".env" file.
+
+---
+
+▶️ Running the Application
 
 Start the Flask server:
 
 python app.py
 
-Open the application in your browser:
+The application will be available at:
 
 http://localhost:5000
 
+---
+
 ☁️ Cloud Deployment
 
-CloudBus can be deployed on platforms such as:
+CloudBus can be deployed using Python-compatible cloud platforms such as:
 
 - Render
 - Railway
 - Fly.io
 - AWS
 
-Render
+Render Configuration
 
 Build Command
 
@@ -371,102 +506,126 @@ Start Command
 
 gunicorn app:app
 
-Add the required environment variables through the cloud platform's environment settings.
+Environment variables should be added through the platform's environment-variable settings.
 
-🧪 Testing
+---
 
-- [ ] Create a new user account
+🧪 Testing Checklist
+
+Authentication
+
+- [ ] Register a new account
 - [ ] Login successfully
-- [ ] Search for available buses
-- [ ] Search using source and destination
-- [ ] Search using a valid travel date
-- [ ] View bus details
-- [ ] View available seats
-- [ ] Select multiple seats
-- [ ] Enter passenger details
-- [ ] Confirm a booking
-- [ ] Verify booking in Supabase
-- [ ] View booking in My Bookings
-- [ ] Cancel a booking
-- [ ] Verify the seat becomes available again
-- [ ] Test two users attempting to book the same seat
-- [ ] Verify that the second booking is rejected
 - [ ] Logout successfully
 - [ ] Verify protected pages require authentication
 
-📊 Seat Availability
+Bus Search
 
-CloudBus maintains live seat availability through the "trip_availability" table.
+- [ ] Search using source and destination
+- [ ] Search using travel date
+- [ ] View available buses
+- [ ] View bus details
 
-Example:
+Seat Booking
 
-Trip 1
-Total Seats     : 40
-Available Seats : 40
+- [ ] View available seats
+- [ ] Select a seat
+- [ ] Select multiple seats
+- [ ] Enter passenger details
+- [ ] Verify automatic price calculation
+- [ ] Confirm booking
+- [ ] Verify booking in Supabase
+- [ ] View booking in My Bookings
 
-After two seats are successfully booked:
+Booking Safety
 
-Trip 1
-Total Seats     : 40
-Available Seats : 38
+- [ ] Cancel a booking
+- [ ] Verify the seat becomes available again
+- [ ] Test two users attempting to book the same seat
+- [ ] Verify the second booking is rejected
 
-The seat map then reflects the updated booking state.
+---
 
 🔐 Security
 
-CloudBus follows several security practices:
+CloudBus implements several security mechanisms:
 
-- Supabase handles user authentication.
-- Passwords are never handled directly by Flask.
-- JWT authentication is used for protected API requests.
-- Supabase Row Level Security protects user data.
-- Service-role credentials are kept on the backend.
-- ".env" credentials are excluded from GitHub.
-- PostgreSQL constraints prevent duplicate confirmed seats.
+- Supabase Authentication for user management
+- JWT-based authentication for protected requests
+- PostgreSQL Row Level Security
+- Database-level seat uniqueness
+- Server-side validation
+- Environment variables for sensitive credentials
+- Service-role credentials restricted to the backend
+- ".env" excluded from version control
 
-«⚠️ Important: Never expose the Supabase "service_role" key or JWT secret in frontend JavaScript.»
+«Important: Never expose the Supabase "service_role" key or JWT secret in frontend JavaScript.»
+
+---
 
 📈 Scalability
 
-The Flask backend is designed to be stateless, allowing multiple application instances to run simultaneously behind a load balancer.
+The Flask backend is designed to remain stateless, allowing multiple application instances to run behind a load balancer.
 
-The database remains the central source of truth for:
+Supabase PostgreSQL acts as the central source of truth for:
 
+- Routes
 - Trips
 - Seat availability
 - Bookings
-- Users
+- User data
 
-Because seat uniqueness is enforced at the PostgreSQL level, booking consistency can be maintained even when multiple users attempt bookings simultaneously.
+Database-level constraints help maintain booking consistency even when multiple users attempt to reserve the same seat simultaneously.
 
-🎯 Future Improvements
+---
 
-Possible future enhancements include:
+🚀 Future Improvements
+
+The following features can be added in future versions:
 
 - 💳 Online payment integration
 - 📧 Booking confirmation emails
-- 📱 Mobile-responsive improvements
+- 📱 Improved mobile responsiveness
 - 🎫 Downloadable PDF tickets
 - 🔔 Booking notifications
-- 🧾 Digital ticket / QR code generation
+- 🧾 QR-code based digital tickets
 - 🗺️ Live bus tracking
 - 👨‍💼 Admin dashboard
 - 📊 Booking analytics
 - 🔍 Advanced bus filtering
-- 🌐 Custom domain deployment
-- ⚡ Caching for high-traffic searches
+- 🌐 Custom domain
+- ⚡ Search caching
+- 📈 Advanced monitoring and logging
 
-👨‍💻 Project
+---
 
-CloudBus — Cloud-Based Bus Ticket Reservation System
+👨‍💻 Project Information
 
-Built using:
+CloudBus
 
-Python + Flask
-HTML + CSS + JavaScript
+Cloud-Based Bus Ticket Reservation System
+
+Built with:
+
+Python
+Flask
+HTML5
+CSS3
+JavaScript
 Supabase
 PostgreSQL
 JWT Authentication
 REST API
 
-CloudBus is designed as a secure, cloud-based and scalable bus reservation platform that provides route searching, real-time seat availability, multi-seat booking, authentication, and database-level protection against double booking.
+CloudBus demonstrates how a cloud-based reservation application can combine a Python backend, modern web technologies, cloud authentication, and PostgreSQL database transactions to provide a secure and reliable bus booking platform.
+
+---
+
+📌 Repository
+
+GitHub:
+https://github.com/subrahmanyamdumpa-spec/CODSOFT_TASK3
+
+---
+
+⭐ CloudBus — Secure. Cloud-Based. Reliable Bus Booking.
