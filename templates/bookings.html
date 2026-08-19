@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Bookings — Cloud Bus</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/css/style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+  <div class="page">
+    <header class="site-header">
+      <div class="wrap">
+        <a class="brand" href="/">
+          <span class="mark">Cloud<span>Bus</span></span>
+          <span class="tagline">reserve · ride · relax</span>
+        </a>
+        <nav class="nav-links">
+          <a href="/">Search</a>
+          <a href="/bookings" class="active requires-auth-link" style="display:none;">My Bookings</a>
+          <a href="/login" id="loginLink">Log in</a>
+          <span id="userChip" style="display:none;"></span>
+          <button id="logoutBtn" class="link-btn" style="display:none;">Log out</button>
+        </nav>
+      </div>
+    </header>
+
+    <main class="content">
+      <div class="wrap">
+        <h2 class="section-title">My bookings</h2>
+        <div id="bookingsList"></div>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap"><strong>CloudBus</strong> — a cloud-hosted bus reservation demo, powered by Supabase.</div>
+    </footer>
+  </div>
+
+  <div id="toast"></div>
+
+  <script src="/static/js/common.js"></script>
+  <script src="/static/js/bookings.js"></script>
+</body>
+</html>

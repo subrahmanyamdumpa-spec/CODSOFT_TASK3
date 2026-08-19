@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cloud Bus — Search buses</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/css/style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+  <div class="page">
+    <header class="site-header">
+      <div class="wrap">
+        <a class="brand" href="/">
+          <span class="mark">Cloud<span>Bus</span></span>
+          <span class="tagline">reserve · ride · relax</span>
+        </a>
+        <nav class="nav-links">
+          <a href="/" class="active">Search</a>
+          <a href="/bookings" class="requires-auth-link" style="display:none;">My Bookings</a>
+          <a href="/login" id="loginLink">Log in</a>
+          <span id="userChip" style="display:none;"></span>
+          <button id="logoutBtn" class="link-btn" style="display:none;">Log out</button>
+        </nav>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="wrap">
+        <div class="ticker">● live departures · book in seconds · secure cloud checkout</div>
+        <h1>Book your next bus ride, seat by seat.</h1>
+        <p class="lede">Search routes, see real seat availability, and lock in your ticket — all backed by a live cloud database.</p>
+
+        <form id="searchForm" class="search-card">
+          <div class="field">
+            <label for="source">From</label>
+            <input type="text" id="source" placeholder="e.g. New York" />
+          </div>
+          <div class="field">
+            <label for="destination">To</label>
+            <input type="text" id="destination" placeholder="e.g. Boston" />
+          </div>
+          <div class="field">
+            <label for="date">Date</label>
+            <input type="date" id="date" />
+          </div>
+          <button type="submit" class="btn btn-primary">Search buses</button>
+        </form>
+      </div>
+    </section>
+
+    <main class="content">
+      <div class="wrap">
+        <h2 class="section-title">Available buses</h2>
+        <div id="results"></div>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap"><strong>CloudBus</strong> — a cloud-hosted bus reservation demo, powered by Supabase.</div>
+    </footer>
+  </div>
+
+  <div id="toast"></div>
+
+  <script src="/static/js/common.js"></script>
+  <script src="/static/js/search.js"></script>
+</body>
+</html>
