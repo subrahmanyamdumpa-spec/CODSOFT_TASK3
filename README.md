@@ -377,43 +377,6 @@ Booking Confirmed
  │
  ▼
 My Bookings
-## 🖼️ Application Screenshots
-
-### 1. Registration / Signup
-
-Users can create a new account using Supabase Authentication.
-
-![Registration / Signup](https://github.com/subrahmanyamdumpa-spec/CODSOFT_TASK3/blob/main/screenshots/Register-signup.png)
-
-### 2. Login
-
-Registered users can securely log in to CloudBus.
-
-![Login](https://github.com/subrahmanyamdumpa-spec/CODSOFT_TASK3/blob/main/screenshots/Login.png)
-
-### 3. Home / Bus Search
-
-Users can search for buses by entering the source, destination, and travel date.
-
-![Home / Bus Search](https://github.com/subrahmanyamdumpa-spec/CODSOFT_TASK3/blob/main/screenshots/Home.png)
-
-### 4. Seat Selection
-
-Users can view the seat map and select one or multiple available seats.
-
-![Seat Selection](https://github.com/subrahmanyamdumpa-spec/CODSOFT_TASK3/blob/main/screenshots/Select_seats.png)
-
-### 5. Booking History
-
-Users can view their confirmed bookings and passenger information.
-
-![Booking History](https://github.com/subrahmanyamdumpa-spec/CODSOFT_TASK3/blob/main/screenshots/bookings.png)
-
-### 6. Supabase Database
-Supabase PostgreSQL is used as the cloud database for routes, trips, seat availability, and bookings.
-
-![Supabase Database](https://github.com/subrahmanyamdumpa-spec/CODSOFT_TASK3/blob/main/screenshots/Supabase.png)
-
 
 ⚙️ Installation
 
